@@ -12,8 +12,7 @@
 
 		$query = "INSERT INTO users (email, passwd, threshold) VALUES ('$user', '$pswd', NULL)";
 		if(mysqli_query($_SESSION['link'], $query) == TRUE) {
-			echo("<script type='text/javascript'>alert('Hi $user! Your user has been created, you can now log in.')</script>");
-			header("HTTP/1.1 307 Temporary Redirect")
+			header("HTTP/1.1 307 Temporary Redirect");
 			header("Location: index.php");
 		}
 		echo("<script type='text/javascript'>alert('The email $user has already been used.')</script>");
