@@ -13,7 +13,8 @@
 		$query = "INSERT INTO users (email, passwd, threshold) VALUES ('$user', '$pswd', NULL)";
 		if(mysqli_query($_SESSION['link'], $query) == TRUE) {
 			echo("<script type='text/javascript'>alert('Hi $user! Your user has been created, you can now log in.')</script>");
-			header("location:index.php");
+			header("HTTP/1.1 307 Temporary Redirect")
+			header("Location: index.php");
 		}
 		echo("<script type='text/javascript'>alert('The email $user has already been used.')</script>");
 	}
@@ -40,7 +41,7 @@
 				</nav>
 			</div>
 			<div id="content" class="page">
-				<h2>Sign up</h2>
+				<h2>Sign up</h2> <!-- TODO: password strength control -->
 				<form name="form-signup" method="post" action="signup.php">
 					<label>Email (will also be your username):</label><br />
 					<input name="user" type="email" /><br />
