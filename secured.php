@@ -6,11 +6,12 @@
 		include("update.php");
 	}
 
-	$queryBid = "SELECT * FROM bid_state";
+	$queryBid = "SELECT value, users.UID, email FROM bid_state AS bid INNER JOIN users on bid.UID = users.UID";
 	$rs = mysqli_query($_SESSION['link'], $queryBid);
 	$array = mysqli_fetch_assoc($rs);
 	$bid = $array['value'];
 	$bidder = $array['UID'];
+	$bidderEmail = $array['email'];
 	$query = "SELECT threshold FROM users WHERE UID=" . $_SESSION['UID'];
 	$rs = mysqli_query($_SESSION['link'], $query);
 	$_SESSION['thr'] = mysqli_fetch_assoc($rs)['threshold'];
@@ -39,10 +40,15 @@
 				</nav>
 			</div>
 			<div id="content" class="page">
-				<h3>The current auction bid is</h3>
-				<div class="bid">$
-					<?php echo(number_format($bid, 2, ".", ",")); ?>
+				<h3>The current auction bid value is</h3>
+				<div class="bid">
+					$ <?php echo(number_format($bid, 2, ".", ",")); ?>
 				</div>
+				<h3>set by user
+					<?php
+						echo "<a class='mono' href='mailto:" . $bidderEmail . "'>" . $bidderEmail . "</a>";
+					?>
+				</h3>
 				<?php
 					if($_SESSION['thr'] == NULL)
 						echo("<div class='unset'>You have not set a threshold yet.</div>");
