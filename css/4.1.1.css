@@ -1,0 +1,132 @@
+html, body {
+	font-family: 'Arial';
+	color: dodgerblue;
+	text-align: left;
+	line-height: 1.3em;
+}
+
+h1 {
+	text-align: center;
+}
+
+h2, h3 {
+	text-align: center;
+}
+
+.bid {
+	margin: 0.5em 2em;
+	padding: 1em 0.3em;
+	text-align: center;
+	color: green;
+	font-family: monospace;
+	font-size: 5em;
+	border: 0.5px green dotted
+}
+
+.bidder {
+	margin: 0.5em 2em;
+	padding: 1em 0.3em;
+	text-align: center;
+	color: green;
+	font-family: monospace;
+	font-size: 1.5em;
+	border: 0.5px green dotted
+}
+
+.non-bidder {
+	margin: 0.5em 2em;
+	padding: 1em 0.3em;
+	text-align: center;
+	color: red;
+	font-family: monospace;
+	font-size: 1.5em;
+	border: 0.5px red dotted
+}
+
+.unset {
+	margin: 0.5em 2em;
+	padding: 1em 0.3em;
+	text-align: center;
+	color: orange;
+	font-family: monospace;
+	font-size: 1.5em;
+	border: 0.5px orange dotted
+}
+
+.prefoot {
+	clear: both;
+}
+
+.main-content {
+	float: none;
+	text-align: justify;
+	width: 100%;
+	margin-bottom: 15px
+}
+
+form {
+	text-align: center;
+}
+
+.menu {
+	width: 20%;
+	float: left;
+	padding: 10px;
+}
+
+.page {
+	border-left: 1.5px dotted dodgerblue;
+	width: 75%;
+	float: right;
+	padding: 10px;
+}
+
+.subtitle {
+	text-align: center;
+	font-size: 10;
+}
+
+hr {
+	border-top: 1px solid dodgerblue
+}
+
+footer {
+	clear: both;
+	margin-top: 15px;
+	border-color: dodgerblue;
+	border-top: 1px solid dodgerblue;
+}
+
+.footer {
+	width: 100%;
+}
+
+li {
+	list-style: none;
+}
+
+.footer-top {
+	padding:10px
+}
+
+.left-footer {
+	padding-top: 10px;
+	text-align: left;
+	width: 50%;
+}
+
+.right-footer {
+	padding-top: 10px;
+	text-align: right;
+	width: 50%;
+}
+
+a, a:visited, a:hover {
+	color: inherit;
+	text-decoration: none;
+}
+
+a.mono {
+	font-family: monospace;
+	font-size: 17;
+}
