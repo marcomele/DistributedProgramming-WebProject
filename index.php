@@ -2,9 +2,10 @@
 	session_start();
 	include("expired.php");
 	if(isset($_SESSION['authorized'])) {
-		header("location: secured.php");
+		header("HTTP/1.1 307 Temporary Redirect");
+		header("Location: secured.php");
 	}
-	if(isset($_POST['user'])) {
+	if(isset($_POST['submit'])) {
 		include("connect.php");
 		include("attempt.php");
 	}
