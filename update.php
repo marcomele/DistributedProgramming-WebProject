@@ -7,9 +7,9 @@
 	$result = mysqli_fetch_assoc($bidRS);
 	$bid = $result['value'];
 	$bidder = $result['UID'];
-	$newThr = $_SESSION['thr'];
+	$newThr = $_POST['threshold'];
 	if($newThr < $bid)
-		echo("<script type='text/javascript'>alert('You cannot set a threshold which is not greater than the current bid.')</script>");
+		echo("<script type='text/javascript'>alert('You cannot set a threshold which is not greater than the current bid: $newThr')</script>");
 	else {
 		try {
 			mysqli_autocommit($link, false);
@@ -29,21 +29,23 @@
 					throw new Exception("unable to execute query " . $query);
 			}
 			/* set new bid value to 0.01 + second maximum threshold -- if any */
-			if($prevMax == NULL)
+			if($uid != $bidder) {
+				if($prevMax == NULL)
 				$value = $bid;
-			else {
-				if($newThr > $prevMax)
-					$value = $prevMax + 0.01;
 				else {
-					if($newThr == $prevMax)
+					if($newThr > $prevMax)
+					$value = $prevMax + 0.01;
+					else {
+						if($newThr == $prevMax)
 						$value = $newThr;
-					else
+						else
 						$value = $newThr + 0.01;
+					}
 				}
-			}
-			$query = "UPDATE bid_state SET value = $value";
-			if(!mysqli_query($link, $query))
+				$query = "UPDATE bid_state SET value = $value";
+				if(!mysqli_query($link, $query))
 				throw new Exception("unable to execute query " . $query);
+			}
 			mysqli_commit($link);
 		} catch (Exception $e) {
 			mysqli_rollback($link);

@@ -1,8 +1,7 @@
 	<?php
 	include("verify.php");
 
-	if(isset($_POST['submit'])) {
-		$_SESSION['thr'] = $_POST['threshold'];
+	if(isset($_POST['set'])) {
 		include("update.php");
 	}
 
@@ -67,8 +66,8 @@
 				<div class="actions">
 					<form name="update" method="post" action="secured.php">
 						<label>Update your threshold</label><br />
-						<input type="number" name="threshold" value=<?php $next = ($_SESSION['thr'] == NULL) ? $bid + 0.01 : $_SESSION['thr'] + 0.01; echo("'$next'"); ?> step="0.01" min=<?php echo("'$next'"); ?>autofocus="true"/>
-						<input type="submit" name="submit" value="Set" />
+						<input type="number" name="threshold" value=<?php $next = ($_SESSION['thr'] == NULL || $bid > $_SESSION['thr']) ? $bid + 0.01 : $_SESSION['thr'] + 0.01; echo("'$next'"); ?> step="0.01" min=<?php echo("'$next'"); ?>autofocus="true"/>
+						<input type="submit" name="set" value="Set" />
 					</form>
 				</div>
 			</div>
