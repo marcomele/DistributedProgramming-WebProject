@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include("expired.php");
+	include("expire.php");
 	if(isset($_SESSION['authorized'])) {
 		header("HTTP/1.1 307 Temporary Redirect");
 		header("Location: secured.php");

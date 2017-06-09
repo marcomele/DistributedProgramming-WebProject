@@ -1,7 +1,8 @@
 <?php
 	session_start();
-	mysqli_close($_SESSIO['link']);
+	mysqli_close($_SESSION['link']);
 	session_destroy();
-	header('location:index.php');
+	header("HTTP/1.1 307 Temporary redirect");
+	header('Location: index.php');
 	die();
 ?>

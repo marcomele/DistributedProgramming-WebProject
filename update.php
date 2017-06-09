@@ -11,24 +11,43 @@
 	if($newThr < $bid)
 		echo("<script type='text/javascript'>alert('You cannot set a threshold which is not greater than the current bid.')</script>");
 	else {
-		mysqli_begin_transaction($link);
-		$query = "SELECT MAX(threshold) FROM users";
-		mysqli_query($link, $query);
-		$prevMaxRS = mysqli_query($link, $query);
-		$prevMax = mysqli_fetch_assoc($prevMaxRS);
-		/* update user threshold */
-		$query = "UPDATE users SET threshold = $newThr WHERE UID = $uid";
-		mysqli_query($link, $query);
-		$plus = 0.00;
-		/* set new bidder to the maximum threshold holder -- only if changed */
-		if($newThr > $prevMax) {
-			$plus = 0.01;
-			$query = "UPDATE bid_state SET UID = (SELECT UID FROM users WHERE threshold = (SELECT MAX(threshold) FROM users))";
-			mysqli_query($link, $query);
+		try {
+			mysqli_autocommit($link, false);
+			$query = "SELECT MAX(threshold) AS max FROM users";
+			$prevMaxRS = mysqli_query($link, $query);
+			if($prevMaxRS == FALSE)
+				throw new Exception("unable to execute query " . $query);
+			$prevMax = mysqli_fetch_assoc($prevMaxRS)['max'];
+			/* update user threshold */
+			$query = "UPDATE users SET threshold = $newThr WHERE UID = $uid";
+			if(!mysqli_query($link, $query))
+				throw new Exception("unable to execute query " . $query);
+			/* set new bidder to the maximum threshold holder -- only if changed or first time */
+			if($newThr > $prevMax || $prevMax === NULL) {
+				$query = "UPDATE bid_state SET UID = (SELECT UID FROM users WHERE threshold = (SELECT MAX(threshold) FROM users))";
+				if(!mysqli_query($link, $query))
+					throw new Exception("unable to execute query " . $query);
+			}
+			/* set new bid value to 0.01 + second maximum threshold -- if any */
+			if($prevMax == NULL)
+				$value = $bid;
+			else {
+				if($newThr > $prevMax)
+					$value = $prevMax + 0.01;
+				else {
+					if($newThr == $prevMax)
+						$value = $newThr;
+					else
+						$value = $newThr + 0.01;
+				}
+			}
+			$query = "UPDATE bid_state SET value = $value";
+			if(!mysqli_query($link, $query))
+				throw new Exception("unable to execute query " . $query);
+			mysqli_commit($link);
+		} catch (Exception $e) {
+			mysqli_rollback($link);
+			echo $e->getMessage();
 		}
-		/* set new bid value to 0.01 + second maximum threshold -- if any */
-		$query = "UPDATE bid_state SET value = (SELECT (CASE MAX(threshold) WHEN NULL THEN NULL ELSE MAX(threshold) + $plus END) FROM users WHERE UID != $bidder)";
-		mysqli_query($link, $query);
-		mysqli_commit($link);
 	}
 ?>

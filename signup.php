@@ -23,6 +23,14 @@
 	<head>
 		<title>Auction Sign Up</title>
 		<link rel="stylesheet" type="text/css" href="css/4.1.1.css" />
+		<script type="text/javascript">
+			function match() {
+				if (document.getElementById("pswd1").value != document.getElementById("pswd2").value)
+					document.getElementById("pswd2").setCustomValidity('Error: passwords musth match.');
+				else
+					document.getElementById("pswd2").setCustomValidity('');
+			}
+		</script>
 	</head>
 	<body>
 		<h1>Sign up for this auction!</h1>
@@ -43,11 +51,11 @@
 				<h2>Sign up</h2> <!-- TODO: password strength control -->
 				<form name="form-signup" method="post" action="signup.php">
 					<label>Email (will also be your username):</label><br />
-					<input name="user" type="email" /><br />
+					<input name="user" type="email" required/><br />
 					<label>Password: </label><br />
-					<input name="passwd" type="password" /><br />
+					<input id="pswd1" name="passwd" type="password" pattern="^.*(?=.*[0-9])(?=.*[a-z]).*$" required/><br />
 					<label>Repeat password: </label><br />
-					<input name="passwd2" type="password" /><br />
+					<input id="pswd2" name="passwd2" type="password" required oninput="match()"/><br />
 					<input name="submit" type="submit" value="Sign Up!" />
 				</form>
 			</div>
