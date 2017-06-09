@@ -7,6 +7,7 @@
 	include_once("connect.php");
 	if(!isset($_SESSION['authorized'])) {
 		echo("<script type='text/javascript'>alert('User not authenticated or session expired.')</script>");
-		header("location:index.php");
+		header("HTTP/1.1 401 Unauthorized");
+		header("Location: index.php");
 	}
 ?>

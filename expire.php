@@ -3,9 +3,13 @@
 		$_SESSION['expired'] = time();
 	} else {
 		if($_SESSION['expired'] + 120 < time()) {
+			$cookie_params = session_get_cookie_params();
+			setcookie(session_name(), '', time() - 3600*24,
+				$cookie_params['path'], $cookie_params['domain'],
+				$cookie_params['secure'], $cookie_params['httponly']);
 			session_destroy();
-			echo("<script type='text/javascript'>alert('Your session has expired, please log in again.')</script>");
-			header("location:index.php");
+			header("HTTP/1.1 307 Temporary Redirect");
+			header("Location: index.php?cause=expired");
 		} else
 			$_SESSION['expired'] = time();
 	}

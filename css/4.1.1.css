@@ -23,6 +23,16 @@ h2, h3 {
 	border: 0.5px green dotted
 }
 
+.msg {
+	margin: 0.5em 2em;
+	padding: 1em 0.3em;
+	text-align: center;
+	color: yelow;
+	font-family: monospace;
+	font-size: 1.5em;
+	border: 0.5px yellow dotted
+}
+
 .bidder {
 	margin: 0.5em 2em;
 	padding: 1em 0.3em;

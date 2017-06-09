@@ -1,6 +1,5 @@
 <?php
 	session_start();
-	include("expired.php");
 	if(isset($_POST['submit'])) {
 		include("connect.php");
 		ini_set('display_errors', 1);
