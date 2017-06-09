@@ -4,7 +4,7 @@
 	} else {
 		if($_SESSION['expired'] + 120 < time()) {
 			header("HTTP/1.1 307 Temporary redirect");
-			header("Location: logout.php");
+			header("Location: logout.php?cause=expired");
 		} else
 			$_SESSION['expired'] = time();
 	}

@@ -36,8 +36,7 @@
 			<div id="content" class="page">
 				<?php
 					if(isset($_GET['cause']))
-						if($_GET['cause'] === "expired")
-							echo "<div class='msg'>Your session has expired, please log in again.</div>"
+						echo "<div class='msg'>Your session has expired, please log in again.</div>"
 				?>
 				<h2>Login</h2>
 				<form name="form-login" method="post" action="index.php">
