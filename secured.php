@@ -1,4 +1,4 @@
-<?php
+	<?php
 	include("verify.php");
 
 	if(isset($_POST['submit'])) {
@@ -6,7 +6,7 @@
 		include("update.php");
 	}
 
-	$queryBid = "SELECT value, users.UID, email FROM bid_state AS bid INNER JOIN users on bid.UID = users.UID";
+	$queryBid = "SELECT value, users.UID, email FROM bid_state AS bid LEFT OUTER JOIN users on bid.UID = users.UID";
 	$rs = mysqli_query($_SESSION['link'], $queryBid);
 	$array = mysqli_fetch_assoc($rs);
 	$bid = $array['value'];
@@ -44,11 +44,15 @@
 				<div class="bid">
 					$ <?php echo(number_format($bid, 2, ".", ",")); ?>
 				</div>
-				<h3>set by user
+				<?php if($bidder == NULL): ?>
+					<h3>No user is currently holding the bid</h3>
+				<?php else: ?>
+				<h3>held by user
 					<?php
 						echo "<a class='mono' href='mailto:" . $bidderEmail . "'>" . $bidderEmail . "</a>";
 					?>
 				</h3>
+				<?php endif; ?>
 				<?php
 					if($_SESSION['thr'] == NULL)
 						echo("<div class='unset'>You have not set a threshold yet.</div>");
