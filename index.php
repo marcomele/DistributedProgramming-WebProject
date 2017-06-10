@@ -40,10 +40,16 @@
 				?>
 				<h2>Login</h2>
 				<form name="form-login" method="post" action="index.php">
-					<label>Username:</label><br />
-					<input name="user" type="email" /><br />
-					<label>Password: </label><br />
-					<input name="passwd" type="password" /><br />
+					<table class="form-table">
+						<tr>
+							<td class="fieldname"><label>Username</label><br /></td>
+							<td class="fieldinput"><input name="user" type="email" /><br /></td>
+						</tr>
+						<tr>
+							<td class="fieldname"><label>Password</label><br /></td>
+							<td class="fieldinput"><input name="passwd" type="password" /><br /></td>
+						</tr>
+					</table>
 					<input name="submit" type="submit" value="Log in" />
 				</form>
 			</div>
