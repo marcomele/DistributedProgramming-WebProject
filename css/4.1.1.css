@@ -3,6 +3,7 @@ html, body {
 	color: black;
 	text-align: left;
 	line-height: 1.3em;
+	width: 99%;
 }
 
 h1 {
@@ -13,14 +14,17 @@ h2, h3 {
 	text-align: center;
 }
 
-.bid {
-	margin: 0.5em 2em;
-	padding: 1em 0.3em;
-	text-align: center;
-	color: green;
-	font-family: monospace;
-	font-size: 5em;
-	border: 0.5px green dotted
+.content {
+	width: auto;
+}
+
+.info {
+	width: auto;
+}
+
+.info:hover {
+	width: auto;
+	border-bottom: solid 3px #555;
 }
 
 input {
@@ -34,7 +38,8 @@ input {
 
 input[type=submit] {
 	margin-top: 2em;
-	width: 7em;
+	padding: 0.5em 1.5em 0.8em 1.5em;
+	width: auto;
 	border-bottom: solid 3px #f1f1f1;
 	background-color: transparent;
 }
@@ -44,9 +49,56 @@ input[type=submit]:hover {
 	background-color: #f1f1f1;
 }
 
+input[type=number] {
+	text-align: right;
+	padding-right: 5em;
+}
+
 input:focus {
 	outline: none;
 	border: 0px;
+}
+
+.bid {
+	padding: 0.5em 0.5em;
+	text-align: center;
+	color: #555;
+	font-family: monospace;
+	font-size: 3em;
+	width: auto;
+}
+
+.threshold {
+	padding: 0.5em 1em;
+	text-align: center;
+	color: #555;
+	font-family: monospace;
+	font-size: 2em;
+	width: auto;
+}
+
+.bidder {
+	padding: 0.5em;
+	text-align: center;
+	color: green;
+	font-size: 1.5em;
+	width: auto;
+}
+
+.non-bidder {
+	padding: 0.5em;
+	text-align: center;
+	color: red;
+	font-size: 1.5em;
+	width: auto;
+}
+
+.unset {
+	padding: 0.5em;
+	text-align: center;
+	color: orangered;
+	font-size: 1.5em;
+	width: auto;
 }
 
 .msg {
@@ -57,36 +109,6 @@ input:focus {
 	font-family: monospace;
 	font-size: 1.5em;
 	border: 0.5px yellow dotted
-}
-
-.bidder {
-	margin: 0.5em 2em;
-	padding: 1em 0.3em;
-	text-align: center;
-	color: green;
-	font-family: monospace;
-	font-size: 1.5em;
-	border: 0.5px green dotted
-}
-
-.non-bidder {
-	margin: 0.5em 2em;
-	padding: 1em 0.3em;
-	text-align: center;
-	color: red;
-	font-family: monospace;
-	font-size: 1.5em;
-	border: 0.5px red dotted
-}
-
-.unset {
-	margin: 0.5em 2em;
-	padding: 1em 0.3em;
-	text-align: center;
-	color: orange;
-	font-family: monospace;
-	font-size: 1.5em;
-	border: 0.5px orange dotted
 }
 
 .prefoot {
@@ -105,20 +127,34 @@ form {
 	text-align: center;
 }
 
+.none {
+	padding-left: 2em;
+	border: 0;
+	border-bottom: 0;
+	background-color: transparent;
+}
+
+.none:hover {
+	border: 0;
+	border-bottom: 0;
+	background-color: transparent;
+}
+
 .menu {
 	width: 20%;
-	float: left;
 	padding: 10px;
+	position: fixed;
+	left: 0;
+	top: 100px;
 }
 
 .page {
-	width: 75%;
-	float: right;
+	width: 100%;
 	padding: 10px;
 }
 
 table {
-	width: 60%;
+	width: 400px;
 	margin: auto;
 	border-collapse: collapse;
 	table-layout: auto;
@@ -128,7 +164,7 @@ td, th {
 	border-bottom: solid 3px #f1f1f1;
 	border-collapse: collapse;
 	border-spacing: 0;
-	border
+	width: auto;
 }
 
 tr {
@@ -141,8 +177,18 @@ tr {
 	width: auto;
 }
 
+.longfieldname {
+	text-align: left;
+	width: 160px;
+}
+
 .fieldinput {
 	text-align: left;
+	width: auto;
+}
+
+.actions {
+	width: auto;
 }
 
 label {
@@ -195,6 +241,12 @@ li a:hover {
 
 .footer-top {
 	padding:10px;
+}
+
+.subtitle {
+	font-size: 10px;
+	color: #555;
+	text-align: left;
 }
 
 .left-footer {

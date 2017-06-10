@@ -49,12 +49,32 @@
 			<div id="content" class="page">
 				<h2>Sign up</h2> <!-- TODO: password strength control -->
 				<form name="form-signup" method="post" action="signup.php">
-					<label>Email (will also be your username):</label><br />
-					<input name="user" type="email" required/><br />
-					<label>Password: </label><br />
-					<input id="pswd1" name="passwd" type="password" pattern="^.*(?=.*[0-9])(?=.*[a-z]).*$" required/><br />
-					<label>Repeat password: </label><br />
-					<input id="pswd2" name="passwd2" type="password" required oninput="match()"/><br />
+					<table class="form-table">
+						<tr>
+							<td class="fieldname">
+								<label>Email<br /><span class="subtitle">
+									will also be your username
+								</span></label><br />
+							</td><td class="fieldinput">
+								<input name="user" type="email" required/>
+							</td>
+						</tr>
+						<tr>
+							<td class="fieldname">
+								<label>Password </label>
+							</td><td class="fieldinput">
+								<input id="pswd1" name="passwd" type="password" pattern="^.*(?=.*[0-9])(?=.*[a-z]).*$" required/><br />
+							</td>
+						</tr>
+						<tr>
+							<td class="fieldname">
+								<label>Repeat password </label>
+							</td>
+							<td class="fieldinput">
+								<input id="pswd2" name="passwd2" type="password" required oninput="match()"/>
+							</td>
+						</tr>
+					</table>
 					<input name="submit" type="submit" value="Sign Up!" />
 				</form>
 			</div>

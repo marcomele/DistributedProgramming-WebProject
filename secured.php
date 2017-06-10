@@ -39,10 +39,17 @@
 				</nav>
 			</div>
 			<div id="content" class="page">
-				<h3>The current auction bid value is</h3>
-				<div class="bid">
-					$ <?php echo(number_format($bid, 2, ".", ",")); ?>
-				</div>
+				<table class="info">
+					<h3>The current auction bid value is</h3>
+					<tr>
+						<td class="info">
+							<div class="bid">
+								$ <?php echo(number_format($bid, 2, ".", ",")); ?>
+							</div>
+						</td>
+					</tr>
+
+				</table>
 				<?php if($bidder == NULL): ?>
 					<h3>No user is currently holding the bid</h3>
 				<?php else: ?>
@@ -53,21 +60,30 @@
 				</h3>
 				<?php endif; ?>
 				<?php
-					if($_SESSION['thr'] == NULL)
-						echo("<div class='unset'>You have not set a threshold yet.</div>");
-					else {
-						if($bidder == $_SESSION['UID'])
-							echo("<div class='bidder'>You are the highest bidder!");
-						else
-							echo("<div class='non-bidder'>Bid exceeded!");
-						echo("<br  /><br />Your current threshold is $ " . number_format($_SESSION['thr'], 2, ".", ",") . "</div>");
-					}
+				if($_SESSION['thr'] == NULL)
+				echo("<div class='unset'>You have not set a threshold yet.</div>");
+				else {
+					if($bidder == $_SESSION['UID'])
+					echo("<div class='bidder'>You are the highest bidder!");
+					else
+					echo("<div class='non-bidder'>Bid exceeded!");
+					echo("</div><h3>Your current threshold is</h3><table class='info'><tr><td class='info'><div class='bid'>$ " . number_format($_SESSION['thr'], 2, ".", ",") . "</div></td></tr></table>");
+				}
 				?>
-				<div class="actions">
+				<br /><br />
+				<div class="actions" width="100%">
 					<form name="update" method="post" action="secured.php">
-						<label>Update your threshold</label><br />
-						<input type="number" name="threshold" value=<?php $next = ($_SESSION['thr'] == NULL || $bid > $_SESSION['thr']) ? $bid + 0.01 : $_SESSION['thr'] + 0.01; echo("'$next'"); ?> step="0.01" min=<?php echo("'$next'"); ?>autofocus="true"/>
-						<input type="submit" name="set" value="Set" />
+						<table class="form-table" width="auto">
+							<tr>
+								<td class="longfieldname" width="150px">
+									<label>Update your threshold</label>
+								</td><td class="fieldinput">
+									<input type="number" name="threshold" value=<?php $next = ($_SESSION['thr'] == NULL || $bid > $_SESSION['thr']) ? $bid + 0.01 : $_SESSION['thr'] + 0.01; echo("'$next'"); ?> step="0.01" min=<?php echo("'$next'"); ?>autofocus="true"/>
+								</td><td class="none">
+									<input type="submit" name="set" value="Set" />
+								</td>
+							</tr>
+						</table>
 					</form>
 				</div>
 			</div>

@@ -42,12 +42,12 @@
 				<form name="form-login" method="post" action="index.php">
 					<table class="form-table">
 						<tr>
-							<td class="fieldname"><label>Username</label><br /></td>
-							<td class="fieldinput"><input name="user" type="email" /><br /></td>
+							<td class="fieldname"><label>Username</label></td>
+							<td class="fieldinput"><input name="user" type="email" /></td>
 						</tr>
 						<tr>
-							<td class="fieldname"><label>Password</label><br /></td>
-							<td class="fieldinput"><input name="passwd" type="password" /><br /></td>
+							<td class="fieldname"><label>Password</label></td>
+							<td class="fieldinput"><input name="passwd" type="password" /></td>
 						</tr>
 					</table>
 					<input name="submit" type="submit" value="Log in" />
@@ -68,7 +68,7 @@
 					<td class="right-footer">
 						<a href="mailto:mmele2@uic.edu" class="mono">mmele2@uic.edu</a><br />
 						<a href="mailto:m.mele@studenti.polito.it" class="mono">m.mele@studenti.polito.it</a><br />
-						<a href="https://it.linkedin.com/in/marco-mele/en" class="mono">linkedin.com/in/marco-mele</a>
+						<a href="https://it.linkedin.com/in/marco-mele/en" target="_blank" class="mono">linkedin.com/in/marco-mele</a>
 					</td>
 				</tr>
 			</table>
