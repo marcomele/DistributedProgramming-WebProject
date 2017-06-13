@@ -1,4 +1,4 @@
-	<?php
+<?php
 	include("verify.php");
 
 	if(isset($_POST['set'])) {
@@ -20,10 +20,19 @@
 	<head>
 		<title>Auction Personal Area</title>
 		<link rel="stylesheet" type="text/css" href="css/4.1.1.css" />
+		<script type="text/javascript" src="controls.js"></script>
+		<noscript>Warning: this site will not work properly unless JavaScript is enabled. Please enable javascript in your browser settings.</noscript>
 	</head>
 	<body>
-		<h1>Welcome <?php echo($_SESSION['username']); ?>!</h1>
-		<h2>This is your personal area</h2>
+		<header><table>
+			<tr>
+				<td class="header">
+					<h1>Welcome <?php echo($_SESSION['username']); ?>!</h1>
+					<h2>This is your personal area</h2>
+				</td>
+			</tr>
+		</table>
+		</header>
 		<div class="main-content">
 			<div class="menu">
 				<nav>
@@ -32,60 +41,81 @@
 						<?php if(!isset($_SESSION['authorized'])): ?>
 							<li><a href="signup.php">Sign up</a></li>
 						<?php endif; ?>
-						<?php if(isset($_SESSION['authorized'])): ?>
+						<?php if(isset($_SESSION['authorized'])) :?>
+							<li><a href="secured.php">Personal Page</a></li>
+						<?php endif; ?>
+						<?php if(isset($_SESSION['authorized'])) :?>
 							<li><a href="logout.php">Logout</a></li>
 						<?php endif; ?>
 					</ul>
 				</nav>
 			</div>
 			<div id="content" class="page">
-				<table class="info">
-					<h3>The current auction bid value is</h3>
+				<table>
 					<tr>
-						<td class="info">
-							<div class="bid">
-								$ <?php echo(number_format($bid, 2, ".", ",")); ?>
-							</div>
+						<td class="blank">
+							<table class="info">
+								<h3>The current auction bid value is</h3>
+								<tr>
+									<td class="info">
+										<div class="bid">
+											$ <?php echo(number_format($bid, 2, ".", ",")); ?>
+										</div>
+									</td>
+								</tr>
+
+							</table>
+
+
+
+						</td>
+						<td class="blank">
+							<?php
+							if($_SESSION['thr'] == NULL)
+							echo("<div class='unset'>You have not set a threshold yet.</div>");
+							else {
+								if($bidder == $_SESSION['UID'])
+								echo("<div class='bidder'>You are the highest bidder!");
+								else
+								echo("<div class='non-bidder'>Bid exceeded!");
+								echo("</div><h3>Your current threshold is</h3><table class='info'><tr><td class='info'><div class='bid'>$ " . number_format($_SESSION['thr'], 2, ".", ",") . "</div></td></tr></table>");
+							}
+							?>
+
 						</td>
 					</tr>
+					<tr>
+						<td class="blank-bottom">
+							<?php if($bidder == NULL): ?>
+								<h3>No user is currently holding the bid</h3>
+							<?php else: ?>
+								<h3>held by user
+									<?php
+									echo "<a class='mono' href='mailto:" . $bidderEmail . "'>" . $bidderEmail . "</a>";
+									?>
+								</h3>
+							<?php endif; ?>
+						</td>
+						<td class="blank-bottom">
+							<div class="actions" width="100%">
+								<form name="update" method="post" action="secured.php">
+									<table class="form-table" width="auto">
+										<tr>
+											<td class="longfieldname" width="150px">
+												<label>Update your threshold</label>
+											</td><td class="fieldinput">
+												<input type="number" name="threshold" value=<?php $next = ($_SESSION['thr'] == NULL || $bid > $_SESSION['thr']) ? $bid + 0.01 : $_SESSION['thr'] + 0.01; echo("'$next'"); ?> step="0.01" min=<?php echo("'$next'"); ?>autofocus="true"/>
+											</td><td class="none">
+												<input type="submit" name="set" value="Set" />
+											</td>
+										</tr>
+									</table>
+								</form>
+							</div>
 
+						</td>
+					</tr>
 				</table>
-				<?php if($bidder == NULL): ?>
-					<h3>No user is currently holding the bid</h3>
-				<?php else: ?>
-				<h3>held by user
-					<?php
-						echo "<a class='mono' href='mailto:" . $bidderEmail . "'>" . $bidderEmail . "</a>";
-					?>
-				</h3>
-				<?php endif; ?>
-				<?php
-				if($_SESSION['thr'] == NULL)
-				echo("<div class='unset'>You have not set a threshold yet.</div>");
-				else {
-					if($bidder == $_SESSION['UID'])
-					echo("<div class='bidder'>You are the highest bidder!");
-					else
-					echo("<div class='non-bidder'>Bid exceeded!");
-					echo("</div><h3>Your current threshold is</h3><table class='info'><tr><td class='info'><div class='bid'>$ " . number_format($_SESSION['thr'], 2, ".", ",") . "</div></td></tr></table>");
-				}
-				?>
-				<br /><br />
-				<div class="actions" width="100%">
-					<form name="update" method="post" action="secured.php">
-						<table class="form-table" width="auto">
-							<tr>
-								<td class="longfieldname" width="150px">
-									<label>Update your threshold</label>
-								</td><td class="fieldinput">
-									<input type="number" name="threshold" value=<?php $next = ($_SESSION['thr'] == NULL || $bid > $_SESSION['thr']) ? $bid + 0.01 : $_SESSION['thr'] + 0.01; echo("'$next'"); ?> step="0.01" min=<?php echo("'$next'"); ?>autofocus="true"/>
-								</td><td class="none">
-									<input type="submit" name="set" value="Set" />
-								</td>
-							</tr>
-						</table>
-					</form>
-				</div>
 			</div>
 		</div>
 

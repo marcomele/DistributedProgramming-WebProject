@@ -1,4 +1,4 @@
-	<?php
+<?php
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
@@ -7,13 +7,14 @@
 		$redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		header("HTTP/1.1 301 Moved permanently");
 		header("Location: " . $redirect);
-	}
-	session_start();
-	include("expire.php");
-	include_once("connect.php");
-	if(!isset($_SESSION['authorized'])) {
-		echo("<script type='text/javascript'>alert('User not authenticated or session expired.')</script>");
-		header("HTTP/1.1 401 Unauthorized");
-		header("Location: index.php");
+		exit();
+	} else {
+		session_start();
+		include("expire.php");
+		include_once("connect.php");
+		if(!isset($_SESSION['authorized'])) {
+			header("HTTP/1.1 401 Unauthorized");
+			header("Location: index.php");
+		}
 	}
 ?>

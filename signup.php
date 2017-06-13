@@ -5,6 +5,7 @@
 		$redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		header("HTTP/1.1 301 Moved permanently");
 		header("Location: " . $redirect);
+		exit();
 	}
 	if(isset($_POST['submit'])) {
 		include("connect.php");
@@ -36,16 +37,30 @@
 					document.getElementById("pswd2").setCustomValidity('');
 			}
 		</script>
+		<script type="text/javascript" src="controls.js"></script>
+		<noscript>Warning: this site will not work properly unless JavaScript is enabled. Please enable javascript in your browser settings.</noscript>
 	</head>
 	<body>
-		<h1>Sign up for this auction!</h1>
+		<header><table>
+			<tr>
+				<td class="header">
+					<h1>Sign up for this auction!</h1>
+				</td>
+			</tr>
+		</table>
+		</header>
 
 		<div class="main-content">
 			<div class="menu">
 				<nav>
 					<ul>
 						<li><a href="index.php">Home</a></li>
-						<li><a href="signup.php">Sign up</a></li>
+						<?php if(!isset($_SESSION['authorized'])): ?>
+							<li><a href="signup.php">Sign up</a></li>
+						<?php endif; ?>
+						<?php if(isset($_SESSION['authorized'])) :?>
+							<li><a href="secured.php">Personal Page</a></li>
+						<?php endif; ?>
 						<?php if(isset($_SESSION['authorized'])) :?>
 							<li><a href="logout.php">Logout</a></li>
 						<?php endif; ?>
@@ -59,17 +74,19 @@
 						<tr>
 							<td class="fieldname">
 								<label>Email<br /><span class="subtitle">
-									will also be your username
+									Will also be your username
 								</span></label><br />
 							</td><td class="fieldinput">
-								<input name="user" type="email" required/>
+								<input name="user" type="email" required placeholder="email@example.org"/>
 							</td>
 						</tr>
 						<tr>
 							<td class="fieldname">
-								<label>Password </label>
+								<label>Password<br /><span class="subtitle">
+									At least one letter and one digit
+								</span></label>
 							</td><td class="fieldinput">
-								<input id="pswd1" name="passwd" type="password" pattern="^.*(?=.*[0-9])(?=.*[a-z]).*$" required/><br />
+								<input id="pswd1" name="passwd" type="password" pattern="^.*(?=.*[0-9])(?=.*[a-zA-Z]).*$" required placeholder="password"/><br />
 							</td>
 						</tr>
 						<tr>
@@ -77,7 +94,7 @@
 								<label>Repeat password </label>
 							</td>
 							<td class="fieldinput">
-								<input id="pswd2" name="passwd2" type="password" required oninput="match()"/>
+								<input id="pswd2" name="passwd2" type="password" required oninput="match()" placeholder="repeat password"/>
 							</td>
 						</tr>
 					</table>

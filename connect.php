@@ -7,8 +7,9 @@
 		$redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		header("HTTP/1.1 301 Moved permanently");
 		header("Location: " . $redirect);
+		exit();
 	}
-	$connect = mysqli_connect("localhost", "root", "root", "auction")
+	$connect = mysqli_connect("bbcasavenezia.it.mysql", "bbcasavenezia_i", "sqlpswd", "bbcasavenezia_i")
 		or die("Error: database authentication failed");
 	$_SESSION['link'] = $connect;
 ?>

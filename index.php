@@ -7,12 +7,18 @@
 	}
 	session_start();
 	include("expire.php");
-	if(isset($_SESSION['authorized'])) {
-		header("HTTP/1.1 307 Temporary Redirect");
-		header("Location: secured.php");
-	}
+	// if(isset($_SESSION['authorized'])) {
+	// 	header("HTTP/1.1 307 Temporary Redirect");
+	// 	header("Location: secured.php");
+	// }
+	include("connect.php");
+	$query = "SELECT * FROM bid_state LEFT OUTER JOIN users ON bid_state.UID = users.UID";
+	$result = mysqli_query($_SESSION['link'], $query);
+	$array = mysqli_fetch_assoc($result);
+	$bid = $array['value'];
+	$bidder = $array['UID'];
+	$bidderEmail = $array['email'];
 	if(isset($_POST['submit'])) {
-		include("connect.php");
 		include("attempt.php");
 	}
 ?>
@@ -21,9 +27,18 @@
 	<head>
 		<title>Auction Home Page</title>
 		<link rel="stylesheet" type="text/css" href="css/4.1.1.css" />
+		<script type="text/javascript" src="controls.js"></script>
+		<noscript>Warning: this site will not work properly unless JavaScript is enabled. Please enable javascript in your browser settings.</noscript>
 	</head>
 	<body>
-		<h1>Welcome to this auction!</h1>
+		<header><table>
+			<tr>
+				<td class="header">
+					<h1>Welcome to this auction!</h1>
+				</td>
+			</tr>
+		</table>
+		</header>
 
 		<div class="main-content">
 			<div class="menu">
@@ -32,6 +47,9 @@
 						<li><a href="index.php">Home</a></li>
 						<?php if(!isset($_SESSION['authorized'])): ?>
 							<li><a href="signup.php">Sign up</a></li>
+						<?php endif; ?>
+						<?php if(isset($_SESSION['authorized'])) :?>
+							<li><a href="secured.php">Personal Page</a></li>
 						<?php endif; ?>
 						<?php if(isset($_SESSION['authorized'])) :?>
 							<li><a href="logout.php">Logout</a></li>
@@ -44,20 +62,62 @@
 					if(isset($_GET['cause']))
 						echo "<div class='msg'>Your session has expired, please log in again.</div>"
 				?>
-				<h2>Login</h2>
-				<form name="form-login" method="post" action="index.php">
-					<table class="form-table">
-						<tr>
-							<td class="fieldname"><label>Username</label></td>
-							<td class="fieldinput"><input name="user" type="email" /></td>
-						</tr>
-						<tr>
-							<td class="fieldname"><label>Password</label></td>
-							<td class="fieldinput"><input name="passwd" type="password" /></td>
-						</tr>
-					</table>
-					<input name="submit" type="submit" value="Log in" />
-				</form>
+
+				<table>
+					<tr>
+					<td class="blank">
+						<table class="info">
+							<h3>The current auction bid value is</h3>
+							<tr>
+								<td class="info">
+									<div class="bid">
+										$ <?php echo(number_format($bid, 2, ".", ",")); ?>
+									</div>
+								</td>
+							</tr>
+
+						</table>
+						<?php if($bidder == NULL): ?>
+							<h3>No user is currently holding the bid</h3>
+						<?php else: ?>
+							<h3>held by user
+								<?php
+								echo "<a class='mono' href='mailto:" . $bidderEmail . "'>" . $bidderEmail . "</a>";
+								?>
+							</h3>
+						<?php endif; ?>
+					</td>
+					<?php if (!isset($_SESSION['authorized'])): ?>
+						<td class="blank">
+							<h2>Login to partecipate!</h2>
+
+							<form name="form-login" method="post" action="index.php">
+								<table class="form-table">
+									<span class="subtitle">
+										Don't have an account? <a href="signup.php" class="underdotted">Sign up here</a>!<br />
+									</span>
+									<tr>
+										<td class="fieldname"><label>Username</label></td>
+										<td class="fieldinput"><input name="user" type="email" placeholder="email@example.org"/></td>
+									</tr>
+									<tr>
+										<td class="fieldname"><label>Password</label></td>
+										<td class="fieldinput"><input name="passwd" type="password" placeholder="password"/></td>
+									</tr>
+								</table>
+								<input name="submit" type="submit" value="Log in" />
+							</form>
+						</td>
+					<?php else: ?>
+						<td class="blank">
+							<h3>
+								To set your threshold and<br /><br />take part to the auction<br /><br />go to your <a href="secured.php" >Personal Page</a>!
+							</h3>
+						</td>
+					<?php endif; ?>
+
+					</tr>
+				</table>
 			</div>
 		</div>
 
