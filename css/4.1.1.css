@@ -118,7 +118,7 @@ input:focus {
 .main-content {
 	float: none;
 	text-align: justify;
-	width: 100%;
+	width: auto;
 	margin-bottom: -150px;
 	position: relative;
 }
@@ -151,6 +151,7 @@ form {
 .page {
 	width: 500px;
 	padding: 10px;
+	margin: auto;
 }
 
 table {
