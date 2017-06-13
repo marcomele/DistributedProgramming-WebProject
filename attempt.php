@@ -12,8 +12,6 @@
 		$_SESSION['username'] = $user;
 		$_SESSION['UID'] = mysqli_fetch_assoc($rs)['UID'];
 		$_SESSION['thr'] = mysqli_fetch_assoc($rs)['threshold'];
-		header("HTTP/1.1 307 Temporary redirect");
-		header('Location: secured.php');
 	} else {
 		echo("<script type='text/javascript'>alert('No match found: wrong username or password.')</script>");
 	}

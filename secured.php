@@ -18,10 +18,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Auction Personal Area</title>
+		<title>Auction Personal Page</title>
 		<link rel="stylesheet" type="text/css" href="css/4.1.1.css" />
 		<script type="text/javascript" src="controls.js"></script>
-		<noscript>Warning: this site will not work properly unless JavaScript is enabled. Please enable javascript in your browser settings.</noscript>
+		<noscript><div class="msg">
+			Warning: this site will not work properly unless JavaScript is enabled. Please enable javascript in your browser settings.
+		</div></noscript>
 	</head>
 	<body>
 		<header><table>
@@ -54,8 +56,8 @@
 				<table>
 					<tr>
 						<td class="blank">
-							<table class="info">
-								<h3>The current auction bid value is</h3>
+							<table class="form-table">
+								<h2>The current auction bid value is</h2>
 								<tr>
 									<td class="info">
 										<div class="bid">
@@ -71,15 +73,8 @@
 						</td>
 						<td class="blank">
 							<?php
-							if($_SESSION['thr'] == NULL)
-							echo("<div class='unset'>You have not set a threshold yet.</div>");
-							else {
-								if($bidder == $_SESSION['UID'])
-								echo("<div class='bidder'>You are the highest bidder!");
-								else
-								echo("<div class='non-bidder'>Bid exceeded!");
-								echo("</div><h3>Your current threshold is</h3><table class='info'><tr><td class='info'><div class='bid'>$ " . number_format($_SESSION['thr'], 2, ".", ",") . "</div></td></tr></table>");
-							}
+							if($_SESSION['thr'] != NULL)
+								echo("<table class='form-table'><h2>Your current threshold is</h2><tr><td class='info'><div class='bid'>$ " . number_format($_SESSION['thr'], 2, ".", ",") . "</div></td></tr></table>");
 							?>
 
 						</td>
@@ -95,13 +90,23 @@
 									?>
 								</h3>
 							<?php endif; ?>
+							<?php
+								if($_SESSION['thr'] == NULL)
+								echo("<div class='unset'>You have not set a threshold yet.</div>");
+								else {
+									if($bidder == $_SESSION['UID'])
+									echo("<div class='bidder'>You are the highest bidder!");
+									else
+									echo("<div class='non-bidder'>Bid exceeded!");
+								}
+							?>
 						</td>
 						<td class="blank-bottom">
 							<div class="actions" width="100%">
 								<form name="update" method="post" action="secured.php">
 									<table class="form-table" width="auto">
 										<tr>
-											<td class="longfieldname" width="150px">
+											<td class="longfieldname">
 												<label>Update your threshold</label>
 											</td><td class="fieldinput">
 												<input type="number" name="threshold" value=<?php $next = ($_SESSION['thr'] == NULL || $bid > $_SESSION['thr']) ? $bid + 0.01 : $_SESSION['thr'] + 0.01; echo("'$next'"); ?> step="0.01" min=<?php echo("'$next'"); ?>autofocus="true"/>

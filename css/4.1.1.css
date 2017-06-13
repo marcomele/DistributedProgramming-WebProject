@@ -6,6 +6,11 @@ html, body {
 	width: 99%;
 }
 
+::selection {
+	background-color: #555;
+	color: #f1f1f1;
+}
+
 h1 {
 	text-align: center;
 }
@@ -27,6 +32,30 @@ h2, h3 {
 	border-bottom: solid 3px #555;
 }
 
+.msg {
+	border: #FFA000 solid 1px;
+	padding: 0.5em;
+	margin-top: -0.5em;
+	background-color: #FFF8E1;
+	color: #FFA000;
+	border-radius: 7px;
+	text-align: center;
+}
+
+.created {
+	text-align: center;
+	border: #4CAF50 solid 1px;
+	padding: 0.5em;
+	margin-top: -0.5em;
+	background-color: #E8F5E9;
+	color: #4CAF50;
+	border-radius: 7px
+}
+
+.decorated, .decorated:hover, .decorated:visited {
+	text-decoration: underline;
+}
+
 input {
 	height: 2em;
 	padding: 0 0.5em;
@@ -38,14 +67,27 @@ input {
 
 input[type=submit] {
 	margin-top: 2em;
-	padding: 0.5em 1.5em 0.8em 1.5em;
+	padding: 0.5em 1.5em 1.2em 1.5em;
 	width: auto;
 	border-bottom: solid 3px #f1f1f1;
 	background-color: transparent;
 }
 
-input[type=submit]:hover {
+.none input[type=submit] {
+	margin-top: 2em;
+	padding: 0.5em 1.5em 1.2em 1.5em;
+	width: auto;
+	border-bottom: 0;
+	background-color: transparent;
+}
+
+input[type=submit]:hover, input[type=submit]:focus {
 	border-bottom: solid 3px #555;
+	background-color: #f1f1f1;
+}
+
+.none input[type=submit]:hover, input[type=submit]:focus {
+	border-bottom: 0;
 	background-color: #f1f1f1;
 }
 
@@ -78,37 +120,33 @@ input:focus {
 }
 
 .bidder {
-	padding: 0.5em;
 	text-align: center;
-	color: green;
-	font-size: 1.5em;
-	width: auto;
+	border: #4CAF50 solid 1px;
+	padding: 0.5em;
+	margin-top: -0.5em;
+	background-color: #E8F5E9;
+	color: #4CAF50;
+	border-radius: 7px
 }
 
 .non-bidder {
-	padding: 0.5em;
 	text-align: center;
-	color: red;
-	font-size: 1.5em;
-	width: auto;
+	border: #C62828 solid 1px;
+	padding: 0.5em;
+	margin-top: -0.5em;
+	background-color: #FFCDD2;
+	color: #C62828;
+	border-radius: 7px
 }
 
 .unset {
+	border: #FFA000 solid 1px;
 	padding: 0.5em;
+	margin-top: -0.5em;
+	background-color: #FFF8E1;
+	color: #FFA000;
+	border-radius: 7px;
 	text-align: center;
-	color: orangered;
-	font-size: 1.5em;
-	width: auto;
-}
-
-.msg {
-	margin: 0.5em 2em;
-	padding: 1em 0.3em;
-	text-align: center;
-	color: yelow;
-	font-family: monospace;
-	font-size: 1.5em;
-	border: 0.5px yellow dotted
 }
 
 .prefoot {
@@ -116,7 +154,7 @@ input:focus {
 }
 
 .form-table {
-	width: 600px;
+	width: auto;
 }
 
 .main-content {
@@ -167,7 +205,7 @@ table {
 }
 
 td, th {
-	border-bottom: solid 3px #f1f1f1;
+	/*border-bottom: solid 3px #f1f1f1;*/
 	border-collapse: collapse;
 	border-spacing: 0;
 	width: auto;
@@ -178,12 +216,24 @@ tr {
 	vertical-align: bottom;
 }
 
+.form-table tr {
+	height: 3.3em;
+	vertical-align: bottom;
+	border-bottom: solid 3px #f1f1f1;
+}
+
+.form-table tr:hover {
+	border-bottom: solid 3px #555;
+}
+
 .blank, .blank:hover {
 	border: 0;
-	width: auto;
+	width: 400px;
 	margin: 100px 100px 20px 100px;
 	padding: 20px 100px;
-	vertical-align: bottom;
+	vertical-align: top;
+	word-wrap: break-word;
+	line-height: 2em;
 }
 
 .blank-bottom, .blank-bottom:hover {
@@ -201,12 +251,12 @@ tr {
 
 .longfieldname {
 	text-align: left;
-	width: 160px;
+	width: 190px;
 }
 
 .fieldinput {
 	text-align: left;
-	width: auto;
+	width: 300px;
 }
 
 .actions {
@@ -216,11 +266,11 @@ tr {
 label {
 	align-content: left;
 }
-
+/*
 td:hover {
 	border-bottom: solid 3px #555;
 }
-
+*/
 .subtitle {
 	text-align: center;
 	font-size: 12pt;

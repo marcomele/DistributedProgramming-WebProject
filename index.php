@@ -28,13 +28,25 @@
 		<title>Auction Home Page</title>
 		<link rel="stylesheet" type="text/css" href="css/4.1.1.css" />
 		<script type="text/javascript" src="controls.js"></script>
-		<noscript>Warning: this site will not work properly unless JavaScript is enabled. Please enable javascript in your browser settings.</noscript>
+		<noscript><div class="msg">
+			Warning: this site will not work properly unless JavaScript is enabled. Please enable javascript in your browser settings.
+		</div></noscript>
 	</head>
 	<body>
 		<header><table>
 			<tr>
 				<td class="header">
-					<h1>Welcome to this auction!</h1>
+					<h1>Welcome <?php if (isset($_SESSION['authorized'])): ?>
+						<?php echo($_SESSION['username']); ?>!</h1>
+					<?php else: ?>
+						to this auction!</h1>
+					<?php endif; ?>
+					<?php if (isset($_GET['expired'])): ?>
+						<div class="msg">
+							Your session has expired, please log in again.
+						</div>
+					<?php endif; ?>
+
 				</td>
 			</tr>
 		</table>
@@ -58,16 +70,11 @@
 				</nav>
 			</div>
 			<div id="content" class="page">
-				<?php
-					if(isset($_GET['cause']))
-						echo "<div class='msg'>Your session has expired, please log in again.</div>"
-				?>
-
 				<table>
 					<tr>
 					<td class="blank">
-						<table class="info">
-							<h3>The current auction bid value is</h3>
+						<table class="form-table">
+							<h2>The current auction bid value is</h2>
 							<tr>
 								<td class="info">
 									<div class="bid">
@@ -109,10 +116,10 @@
 							</form>
 						</td>
 					<?php else: ?>
-						<td class="blank">
-							<h3>
-								To set your threshold and<br /><br />take part to the auction<br /><br />go to your <a href="secured.php" >Personal Page</a>!
-							</h3>
+						<td align-content="center" class="blank">
+							<h2 word-wrap="break-word">
+								To set your threshold and take part to the auction go to your <a href="secured.php" >Personal Page</a>!
+							</h2>
 						</td>
 					<?php endif; ?>
 

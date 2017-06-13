@@ -18,8 +18,7 @@
 
 		$query = "INSERT INTO users (email, passwd, threshold) VALUES ('$user', '$pswd', NULL)";
 		if(mysqli_query($_SESSION['link'], $query) == TRUE) {
-			header("HTTP/1.1 307 Temporary Redirect");
-			header("Location: index.php");
+			header("Location: signup.php?created=true&email=" . $user);
 		}
 		echo("<script type='text/javascript'>alert('The email $user has already been used.')</script>");
 	}
@@ -38,13 +37,20 @@
 			}
 		</script>
 		<script type="text/javascript" src="controls.js"></script>
-		<noscript>Warning: this site will not work properly unless JavaScript is enabled. Please enable javascript in your browser settings.</noscript>
+		<noscript><div class="msg">
+			Warning: this site will not work properly unless JavaScript is enabled. Please enable javascript in your browser settings.
+		</div></noscript>
 	</head>
 	<body>
 		<header><table>
 			<tr>
 				<td class="header">
 					<h1>Sign up for this auction!</h1>
+					<?php if (isset($_GET['created'])): ?>
+						<div class="created">
+							Hello <?php echo($_GET['email']) ?>, your account has been created! You can now <a href="index.php" class="decorated">log in</a>!
+						</div>
+					<?php endif; ?>
 				</td>
 			</tr>
 		</table>
