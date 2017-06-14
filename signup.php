@@ -7,7 +7,7 @@
 		header("Location: " . $redirect);
 		exit();
 	}
-	if(isset($_POST['submit'])) {
+	if(isset($_POST['registrar'])) {
 		include("connect.php");
 		ini_set('display_errors', 1);
 		ini_set('display_startup_errors', 1);
@@ -18,7 +18,8 @@
 
 		$query = "INSERT INTO users (email, passwd, threshold) VALUES ('$user', '$pswd', NULL)";
 		if(mysqli_query($_SESSION['link'], $query) == TRUE) {
-			header("Location: signup.php?created=true&email=" . $user);
+			header("Location: index.php?created");
+			exit;
 		}
 		echo("<script type='text/javascript'>alert('The email $user has already been used.')</script>");
 	}
@@ -104,7 +105,7 @@
 							</td>
 						</tr>
 					</table>
-					<input name="submit" type="submit" value="Sign Up!" />
+					<input name="registrar" type="submit" value="Sign Up!" />
 				</form>
 			</div>
 		</div>

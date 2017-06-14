@@ -10,7 +10,9 @@
 	if($cond) {
 		header("HTTP/1.1 307 Temporary redirect");
 		header('Location: index.php?expired');
+		exit;
 	}
 	header("HTTP/1.1 307 Temporary redirect");
 	header('Location: index.php');
+	exit;
 ?>

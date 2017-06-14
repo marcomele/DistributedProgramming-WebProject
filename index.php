@@ -46,7 +46,11 @@
 							Your session has expired, please log in again.
 						</div>
 					<?php endif; ?>
-
+					<?php if (isset($_GET['created'])): ?>
+						<div class="bidder">
+							Your account has been created, you can now log in.
+						</div>
+					<?php endif; ?>
 				</td>
 			</tr>
 		</table>
