@@ -56,7 +56,7 @@
 		</script>
 		<script type="text/javascript" src="controls.js"></script>
 		<noscript><div class="msg">
-			Warning: this site will not work properly unless JavaScript is enabled. Please enable javascript in your browser settings.
+			Warning: this site will not work properly unless JavaScript is enabled. Please enable Javascript from your browser settings.
 		</div></noscript>
 	</head>
 	<body>
@@ -110,7 +110,11 @@
 				<h2>Sign up</h2>
 				<form name="form-signup" method="post" action="signup.php">
 					<table class="form-table">
-						<tr>
+						<tr <?php if (isset($_GET['email'])): ?>
+							style="height: 3.3em; vertical-align: bottom; border-bottom: solid 3px #C62828;"
+						<?php endif; ?> <?php if (isset($_GET['exists'])): ?>
+							style="height: 3.3em; vertical-align: bottom; border-bottom: solid 3px #FFA000;"
+						<?php endif; ?>>
 							<td class="fieldname">
 								<label>Email<br /><span class="subtitle">
 									Will also be your username
@@ -119,16 +123,20 @@
 								<input name="user" type="email" required placeholder="email@example.org"/>
 							</td>
 						</tr>
-						<tr>
+						<tr <?php if (isset($_GET['invalid'])): ?>
+							style="height: 3.3em; vertical-align: bottom; border-bottom: solid 3px #C62828;"
+						<?php endif; ?>>
 							<td class="fieldname">
 								<label>Password<br /><span class="subtitle">
 									At least one letter and one digit
 								</span></label>
 							</td><td class="fieldinput">
-								<input id="pswd1" name="passwd" type="password" pattern="^.*(?=.*[0-9])(?=.*[a-zA-Z]).*$" required placeholder="password"/><br />
+								<input id="pswd1" name="passwd" type="password" required placeholder="password"/><br />
 							</td>
-						</tr>
-						<tr>
+						</tr><!-- pattern="^.*(?=.*[0-9])(?=.*[a-zA-Z]).*$" -->
+						<tr <?php if (isset($_GET['invalid']) || isset($_GET['match'])): ?>
+							style="height: 3.3em; vertical-align: bottom; border-bottom: solid 3px #C62828;"
+						<?php endif; ?>>
 							<td class="fieldname">
 								<label>Repeat password </label>
 							</td>

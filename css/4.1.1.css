@@ -226,6 +226,10 @@ tr {
 	border-bottom: solid 3px #555;
 }
 
+.form-table tr:focus {
+	border-bottom: solid 3px #555;
+}
+
 .blank, .blank:hover {
 	border: 0;
 	width: 400px;
