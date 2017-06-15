@@ -12,16 +12,33 @@
 		ini_set('display_errors', 1);
 		ini_set('display_startup_errors', 1);
 		error_reporting(E_ALL);
-		$user = mysqli_real_escape_string($connect, $_POST['user']);
-		$pswd = mysqli_real_escape_string($connect, $_POST['passwd']);
+		$user = sanitize($_POST['user']);
+		$pswd = sanitize($_POST['passwd']);
+		$pswd2 = sanitize($_POST['passwd2']);
+
+		if(!filter_var($user, FILTER_VALIDATE_EMAIL)) {
+			header("Location: signup.php?email");
+			exit();
+		}
+		if(!preg_match("/^.*(?=.*[0-9])(?=.*[a-z]).*$/", $pswd)) {
+			header("Location: signup.php?invalid");
+			exit();
+		}
+		if($pswd != $pswd2) {
+			header("Location: signup.php?match");
+			exit();
+		}
+
 		$pswd = md5(md5(md5($pswd)));
 
 		$query = "INSERT INTO users (email, passwd, threshold) VALUES ('$user', '$pswd', NULL)";
 		if(mysqli_query($_SESSION['link'], $query) == TRUE) {
 			header("Location: index.php?created");
-			exit;
+			exit();
+		} else {
+			header("Location: signup.php?exists");
+			exit();
 		}
-		echo("<script type='text/javascript'>alert('The email $user has already been used.')</script>");
 	}
 ?>
 <!DOCTYPE html>
@@ -47,9 +64,24 @@
 			<tr>
 				<td class="header">
 					<h1>Sign up for this auction!</h1>
-					<?php if (isset($_GET['created'])): ?>
-						<div class="created">
-							Hello <?php echo($_GET['email']) ?>, your account has been created! You can now <a href="index.php" class="decorated">log in</a>!
+					<?php if (isset($_GET['email'])): ?>
+						<div class="non-bidder">
+							You must enter a valid email address.
+						</div>
+					<?php endif; ?>
+					<?php if (isset($_GET['invalid'])): ?>
+						<div class="non-bidder">
+							Password must contain at least one digit and one number.
+						</div>
+					<?php endif; ?>
+					<?php if (isset($_GET['match'])): ?>
+						<div class="non-bidder">
+							Passwords must match.
+						</div>
+					<?php endif; ?>
+					<?php if (isset($_GET['exists'])): ?>
+						<div class="unset">
+							The provided email address already refers to an account, you may want to login instead.
 						</div>
 					<?php endif; ?>
 				</td>
@@ -75,7 +107,7 @@
 				</nav>
 			</div>
 			<div id="content" class="page">
-				<h2>Sign up</h2> <!-- TODO: password strength control -->
+				<h2>Sign up</h2>
 				<form name="form-signup" method="post" action="signup.php">
 					<table class="form-table">
 						<tr>

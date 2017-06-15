@@ -14,7 +14,7 @@
 		include_once("connect.php");
 		if(!isset($_SESSION['authorized'])) {
 			header("HTTP/1.1 401 Unauthorized");
-			header("Location: index.php");
+			header("Location: index.php?unauthorized");
 		}
 	}
 ?>

@@ -52,6 +52,11 @@
 							Your account has been created, you can now log in.
 						</div>
 					<?php endif; ?>
+					<?php if (isset($_GET['unauthorized'])): ?>
+						<div class="non-bidder">
+							Access denied: you must login to visit your personal page.
+						</div>
+					<?php endif; ?>
 					<?php if (isset($_SESSION['attempt']) && !isset($_SESSION['authorized'])): ?>
 						<div class="non-bidder">
 							Login error: wrong username or password.
