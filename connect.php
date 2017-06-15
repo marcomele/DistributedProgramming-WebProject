@@ -9,7 +9,7 @@
 		header("Location: " . $redirect);
 		exit();
 	}
-	$connect = mysqli_connect("bbcasavenezia.it.mysql", "bbcasavenezia_i", "sqlpswd", "bbcasavenezia_i")
+	$connect = mysqli_connect("localhost", "root", "root", "auction")
 		or die("Error: database authentication failed");
 	$_SESSION['link'] = $connect;
 ?>
