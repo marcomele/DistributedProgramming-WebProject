@@ -113,6 +113,11 @@
 											</td><td class="none">
 												<input type="submit" name="set" value="Set" />
 											</td>
+											<?php if (isset($_GET['below'])): ?>
+												<div class="non-bidder">
+													You can not set a threshold lower than the current bid value.
+												</div>
+											<?php endif; ?>
 										</tr>
 									</table>
 								</form>

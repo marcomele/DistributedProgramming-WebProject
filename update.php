@@ -7,9 +7,11 @@
 	$result = mysqli_fetch_assoc($bidRS);
 	$bid = $result['value'];
 	$bidder = $result['UID'];
-	$newThr = $_POST['threshold'];
-	if($newThr < $bid)
-		echo("<script type='text/javascript'>alert('You cannot set a threshold which is not greater than the current bid: $newThr')</script>");
+	$newThr = sanitize($_POST['threshold']);
+	if($newThr < $bid) {
+		header("Location: secured.php?below");
+		exit();
+	}
 	else {
 		try {
 			mysqli_autocommit($link, false);
