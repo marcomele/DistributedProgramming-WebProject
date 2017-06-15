@@ -6,7 +6,8 @@
 		header("Location: " . $redirect);
 	}
 	session_start();
-	include("expire.php");
+	if(isset($_SESSION['authorized']))
+		include("expire.php");
 	// if(isset($_SESSION['authorized'])) {
 	// 	header("HTTP/1.1 307 Temporary Redirect");
 	// 	header("Location: secured.php");
@@ -50,6 +51,12 @@
 						<div class="bidder">
 							Your account has been created, you can now log in.
 						</div>
+					<?php endif; ?>
+					<?php if (isset($_SESSION['attempt']) && !isset($_SESSION['authorized'])): ?>
+						<div class="non-bidder">
+							Login error: wrong username or password.
+						</div>
+						<?php unset($_SESSION['attempt']) ?>
 					<?php endif; ?>
 				</td>
 			</tr>

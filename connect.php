@@ -12,4 +12,10 @@
 	$connect = mysqli_connect("localhost", "root", "root", "auction")
 		or die("Error: database authentication failed");
 	$_SESSION['link'] = $connect;
+	function sanitize($var) {
+ 		$var = strip_tags($var);
+ 		$var = htmlentities($var);
+ 		$var = stripcslashes($var);
+ 		return mysqli_real_escape_string($_SESSION['link'], $var);
+	}
 ?>
