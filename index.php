@@ -29,8 +29,8 @@
 		<title>Auction Home Page</title>
 		<link rel="stylesheet" type="text/css" href="css/4.1.1.css" />
 		<script type="text/javascript" src="controls.js"></script>
-		<noscript><div class="msg">
-			Warning: this site will not work properly unless JavaScript is enabled. Please enable javascript in your browser settings.
+		<noscript><div class="jsmsg">
+			Warning: this site will not work properly unless JavaScript is enabled. Please enable Javascript in your browser settings.
 		</div></noscript>
 	</head>
 	<body>
