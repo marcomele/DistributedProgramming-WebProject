@@ -131,9 +131,9 @@
 									At least one letter and one digit
 								</span></label>
 							</td><td class="fieldinput">
-								<input id="pswd1" name="passwd" type="password" required placeholder="password"/><br />
+								<input id="pswd1" name="passwd" type="password" pattern="^.*(?=.*[0-9])(?=.*[a-zA-Z]).*$" required placeholder="password"/><br />
 							</td>
-						</tr><!-- pattern="^.*(?=.*[0-9])(?=.*[a-zA-Z]).*$" -->
+						</tr>
 						<tr <?php if (isset($_GET['invalid']) || isset($_GET['match'])): ?>
 							style="height: 3.3em; vertical-align: bottom; border-bottom: solid 3px #C62828;"
 						<?php endif; ?>>
