@@ -114,8 +114,13 @@
 												<input type="submit" name="set" value="Set" />
 											</td>
 											<?php if (isset($_GET['below'])): ?>
-												<div class="non-bidder">
+												<div class="msg">
 													You can not set a threshold lower than the current bid value.
+												</div>
+											<?php endif; ?>
+											<?php if (isset($_GET['error'])): ?>
+												<div class="non-bidder">
+													Unable to carry the operation: internal server error.
 												</div>
 											<?php endif; ?>
 										</tr>

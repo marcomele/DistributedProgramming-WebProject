@@ -29,11 +29,11 @@
 		<title>Auction Home Page</title>
 		<link rel="stylesheet" type="text/css" href="css/4.1.1.css" />
 		<script type="text/javascript" src="controls.js"></script>
+	</head>
+	<body>
 		<noscript><div class="jsmsg">
 			Warning: this site will not work properly unless JavaScript is enabled. Please enable Javascript in your browser settings.
 		</div></noscript>
-	</head>
-	<body>
 		<header><table>
 			<tr>
 				<td class="header">
@@ -89,8 +89,8 @@
 				<table>
 					<tr>
 					<td class="blank">
+						<h2>The current auction bid value is</h2>
 						<table class="form-table">
-							<h2>The current auction bid value is</h2>
 							<tr>
 								<td class="info">
 									<div class="bid">

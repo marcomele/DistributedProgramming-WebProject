@@ -50,8 +50,10 @@
 			function match() {
 				if (document.getElementById("pswd1").value != document.getElementById("pswd2").value)
 					document.getElementById("pswd2").setCustomValidity('Error: passwords musth match.');
-				else
+				else {
 					document.getElementById("pswd2").setCustomValidity('');
+					document.getElementById("pswd1").setCustomValidity('');
+				}
 			}
 		</script>
 		<script type="text/javascript" src="controls.js"></script>
@@ -131,7 +133,7 @@
 									At least one letter and one digit
 								</span></label>
 							</td><td class="fieldinput">
-								<input id="pswd1" name="passwd" type="password" pattern="^.*(?=.*[0-9])(?=.*[a-zA-Z]).*$" required placeholder="password"/><br />
+								<input id="pswd1" name="passwd" type="password" oninput="match()" pattern="^.*(?=.*[0-9])(?=.*[a-zA-Z]).*$" required placeholder="password"/><br />
 							</td>
 						</tr>
 						<tr <?php if (isset($_GET['invalid']) || isset($_GET['match'])): ?>

@@ -18,17 +18,17 @@
 			$query = "SELECT MAX(threshold) AS max FROM users";
 			$prevMaxRS = mysqli_query($link, $query);
 			if($prevMaxRS == FALSE)
-				throw new Exception("unable to execute query " . $query);
+				throw new Exception("unable to execute query ");
 			$prevMax = mysqli_fetch_assoc($prevMaxRS)['max'];
 			/* update user threshold */
 			$query = "UPDATE users SET threshold = $newThr WHERE UID = $uid";
 			if(!mysqli_query($link, $query))
-				throw new Exception("unable to execute query " . $query);
+				throw new Exception("unable to execute query ");
 			/* set new bidder to the maximum threshold holder -- only if changed or first time */
 			if($newThr > $prevMax || $prevMax === NULL) {
 				$query = "UPDATE bid_state SET UID = (SELECT UID FROM users WHERE threshold = (SELECT MAX(threshold) FROM users))";
 				if(!mysqli_query($link, $query))
-					throw new Exception("unable to execute query " . $query);
+					throw new Exception("unable to execute query ");
 			}
 			/* set new bid value to 0.01 + second maximum threshold -- if any */
 			if($uid != $bidder) {
@@ -46,12 +46,13 @@
 				}
 				$query = "UPDATE bid_state SET value = $value";
 				if(!mysqli_query($link, $query))
-				throw new Exception("unable to execute query " . $query);
+				throw new Exception("unable to execute query ");
 			}
 			mysqli_commit($link);
 		} catch (Exception $e) {
 			mysqli_rollback($link);
-			echo $e->getMessage();
+			header("HTTP/1.1 500 Internal Server Error");
+			header("Location: secured.php?error");
 		}
 	}
 ?>
