@@ -8,7 +8,10 @@
 	$bid = $result['value'];
 	$bidder = $result['UID'];
 	$newThr = sanitize($_POST['threshold']);
-	if($newThr < $bid) {
+	$query = "SELECT threshold FROM users WHERE UID=" . $_SESSION['UID'];
+	$rs = mysqli_query($_SESSION['link'], $query);
+	$curThr = mysqli_fetch_assoc($rs)['threshold'];
+	if($newThr <= $bid || ($curThr != NULL && $newThr <= $curThr)) {
 		header("Location: secured.php?below");
 		exit();
 	}

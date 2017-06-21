@@ -115,7 +115,7 @@
 											</td>
 											<?php if (isset($_GET['below'])): ?>
 												<div class="msg">
-													You can not set a threshold lower than the current bid value.
+													You can not set a threshold not greater than the current bid value.
 												</div>
 											<?php endif; ?>
 											<?php if (isset($_GET['error'])): ?>
