@@ -46,7 +46,7 @@ function checkSessionExpiral() {
 
 function connect() {
 	httpsRedirect();
-	$link = mysqli_connect("bbcasavenezia.it.mysql", "bbcasavenezia_i", "sqlpswd", "bbcasavenezia_i")
+	$link = mysqli_connect("localhost", "s241882", "nhosenie", "s241882")
 		or die("500 Server Error: this server is experiencing troubles in the database interaction.");
 	$_SESSION['link'] = $link;
 	return $link;
