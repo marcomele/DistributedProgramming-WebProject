@@ -1,19 +1,21 @@
 <?php
-	include("verify.php");
+	session_start();
+	include("library.php");
+	showPhpErrors();
+	checkSessionExpiral();
+	$link = connect();
+	restrict();
 
 	if(isset($_POST['set'])) {
-		include("update.php");
+		update($link, $_POST['threshold'], $_SESSION['UID']);
+		unset($_POST['set']);
 	}
 
-	$queryBid = "SELECT value, users.UID, email FROM bid_state AS bid LEFT OUTER JOIN users on bid.UID = users.UID";
-	$rs = mysqli_query($_SESSION['link'], $queryBid);
-	$array = mysqli_fetch_assoc($rs);
+	$array = getBidState($link);
 	$bid = $array['value'];
 	$bidder = $array['UID'];
 	$bidderEmail = $array['email'];
-	$query = "SELECT threshold FROM users WHERE UID=" . $_SESSION['UID'];
-	$rs = mysqli_query($_SESSION['link'], $query);
-	$_SESSION['thr'] = mysqli_fetch_assoc($rs)['threshold'];
+	$threshold = getUserThreshold($link, $_SESSION['UID']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -73,8 +75,8 @@
 						</td>
 						<td class="blank">
 							<?php
-							if($_SESSION['thr'] != NULL)
-								echo("<table class='form-table'><h2>Your current threshold is</h2><tr><td class='info'><div class='bid'>$ " . number_format($_SESSION['thr'], 2, ".", ",") . "</div></td></tr></table>");
+							if($threshold != NULL)
+								echo("<table class='form-table'><h2>Your current threshold is</h2><tr><td class='info'><div class='bid'>$ " . number_format($threshold, 2, ".", ",") . "</div></td></tr></table>");
 							?>
 
 						</td>
@@ -91,7 +93,7 @@
 								</h3>
 							<?php endif; ?>
 							<?php
-								if($_SESSION['thr'] == NULL)
+								if($threshold == NULL)
 								echo("<div class='unset'>You have not set a threshold yet.</div>");
 								else {
 									if($bidder == $_SESSION['UID'])
@@ -109,7 +111,7 @@
 											<td class="longfieldname">
 												<label>Update your threshold</label>
 											</td><td class="fieldinput">
-												<input type="number" name="threshold" value=<?php $next = ($_SESSION['thr'] == NULL || $bid > $_SESSION['thr']) ? $bid + 0.01 : $_SESSION['thr'] + 0.01; echo("'$next'"); ?> step="0.01" min=<?php echo("'$next'"); ?>autofocus="true"/>
+												<input type="number" name="threshold" value=<?php $next = ($threshold == NULL || $bid > $threshold) ? $bid + 0.01 : $threshold + 0.01; echo("'$next'"); ?> step="0.01" min=<?php echo("'$next'"); ?>autofocus="true"/>
 											</td><td class="none">
 												<input type="submit" name="set" value="Set" />
 											</td>

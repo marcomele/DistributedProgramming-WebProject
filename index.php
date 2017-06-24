@@ -1,20 +1,18 @@
 <?php
 	session_start();
+	include("library.php");
+	showPhpErrors();
+	checkSessionExpiral();
+	$link = connect();
 	if(isset($_SESSION['authorized']))
-		include("expire.php");
-	// if(isset($_SESSION['authorized'])) {
-	// 	header("HTTP/1.1 307 Temporary Redirect");
-	// 	header("Location: secured.php");
-	// }
-	include("connect.php");
-	$query = "SELECT * FROM bid_state LEFT OUTER JOIN users ON bid_state.UID = users.UID";
-	$result = mysqli_query($_SESSION['link'], $query);
-	$array = mysqli_fetch_assoc($result);
+		checkSessionExpiral();
+	$array = getBidState($link);
 	$bid = $array['value'];
 	$bidder = $array['UID'];
 	$bidderEmail = $array['email'];
 	if(isset($_POST['submit'])) {
-		include("attempt.php");
+		authenticate($_POST['user'], $_POST['passwd'], $link);
+		unset($_POST['submit']);
 	}
 ?>
 <!DOCTYPE html>

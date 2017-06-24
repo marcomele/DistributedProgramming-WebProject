@@ -1,38 +1,10 @@
 <?php
 	session_start();
-	if(isset($_POST['registrar'])) {
-		include("connect.php");
-		ini_set('display_errors', 1);
-		ini_set('display_startup_errors', 1);
-		error_reporting(E_ALL);
-		$user = sanitize($_POST['user']);
-		$pswd = sanitize($_POST['passwd']);
-		$pswd2 = sanitize($_POST['passwd2']);
-
-		if(!filter_var($user, FILTER_VALIDATE_EMAIL)) {
-			header("Location: signup.php?email");
-			exit();
-		}
-		if(!preg_match("/^.*(?=.*[0-9])(?=.*[a-z]).*$/", $pswd)) {
-			header("Location: signup.php?invalid");
-			exit();
-		}
-		if($pswd != $pswd2) {
-			header("Location: signup.php?match");
-			exit();
-		}
-
-		$pswd = md5(md5(md5($pswd)));
-
-		$query = "INSERT INTO users (email, passwd, threshold) VALUES ('$user', '$pswd', NULL)";
-		if(mysqli_query($_SESSION['link'], $query) == TRUE) {
-			header("Location: index.php?created");
-			exit();
-		} else {
-			header("Location: signup.php?exists");
-			exit();
-		}
-	}
+	include("library.php");
+	showPhpErrors();
+	$link = connect();
+	if(isset($_POST['registrar']))
+		registerUser($_POST['user'], $_POST['passwd'], $_POST['passwd2'], $link);
 ?>
 <!DOCTYPE html>
 <html>
