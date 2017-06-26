@@ -32,8 +32,6 @@ function logout($isExpired) {
 }
 
 function checkSessionExpiral() {
-	if(!isset($_SESSION['authorized']))
-		return;
 	if(!isset($_SESSION['expired'])) {
 		$_SESSION['expired'] = time();
 	} else {
@@ -80,6 +78,7 @@ function authenticate($user, $pswd, $link) {
 		$_SESSION['username'] = $user;
 		$_SESSION['UID'] = mysqli_fetch_assoc($rs)['UID'];
 		$_SESSION['thr'] = mysqli_fetch_assoc($rs)['threshold'];
+		checkSessionExpiral();
 	}
 }
 

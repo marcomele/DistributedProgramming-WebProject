@@ -2,9 +2,9 @@
 	session_start();
 	include("library.php");
 	showPhpErrors();
+	restrict();
 	checkSessionExpiral();
 	$link = connect();
-	restrict();
 
 	if(isset($_POST['set'])) {
 		update($link, $_POST['threshold'], $_SESSION['UID']);
