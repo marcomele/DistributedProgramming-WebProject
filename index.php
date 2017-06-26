@@ -2,7 +2,6 @@
 	session_start();
 	include("library.php");
 	showPhpErrors();
-	checkSessionExpiral();
 	$link = connect();
 	if(isset($_SESSION['authorized']))
 		checkSessionExpiral();
